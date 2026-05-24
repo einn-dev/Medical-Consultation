@@ -7,464 +7,23 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="/frontend/styles.css">
 
-<style>
-:root {
-    --primary-color: #0f8b5f;
-    --primary-dark: #0b6b49;
-    --primary-light: #e8f5e9;
-    --accent-color: #ff9800;
-    --bg-gray: #f4f7f6;
-    --text-dark: #333;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body{
-    background: var(--bg-gray);
-    color: var(--text-dark);
-}
-
-/* LOGIN PAGE WITH CUSTOM HOSPITAL BACKGROUND */
-/* LOGIN PAGE WITH NO GREEN TINT OVERLAY */
-#loginPage{
-    width:100%;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    /* Removed the linear-gradient color entirely */
-    background: url('hospital.jfif');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.login-box{
-    width:400px;
-    background:white;
-    padding:40px;
-    border-radius:15px;
-    box-shadow:0 8px 30px rgba(0,0,0,0.3);
-}
-
-.login-box h1{
-    text-align:center;
-    color: var(--primary-color);
-    margin-bottom:10px;
-}
-
-.login-box p{
-    text-align:center;
-    color:#666;
-    margin-bottom:25px;
-}
-
-.login-box input,
-.login-box select{
-    width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size: 14px;
-}
-
-.login-btn{
-    width:100%;
-    background: var(--primary-color);
-    color:white;
-    border:none;
-    padding:12px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:16px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.login-btn:hover{
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-}
-
-/* SYSTEM MAIN LAYOUT */
-#mainSystem{
-    display:none;
-}
-
-.sidebar{
-    width:250px;
-    height:100vh;
-    background: var(--primary-color);
-    color:white;
-    position:fixed;
-    padding:20px;
-    overflow-y:auto;
-    z-index: 100;
-}
-
-.sidebar h2{
-    text-align:center;
-    margin-bottom:5px;
-}
-
-#userDisplayRole {
-    text-align: center;
-    font-size: 12px;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 4px 10px;
-    border-radius: 20px;
-    margin-bottom: 25px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.sidebar ul{
-    list-style:none;
-}
-
-.sidebar ul li{
-    padding:15px;
-    margin-bottom:10px;
-    border-radius:8px;
-    cursor:pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.sidebar ul li:hover,
-.sidebar ul .active{
-    background: var(--primary-dark);
-    transform: translateX(5px);
-}
-
-.main{
-    margin-left:250px;
-    padding:25px;
-    animation: fadeIn 0.8s ease;
-}
-
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
-    background: white;
-    padding: 15px 25px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.header h1{
-    color: var(--primary-color);
-}
-
-.logout-btn{
-    background:#dc3545;
-    color:white;
-    border:none;
-    padding:10px 20px;
-    border-radius:8px;
-    cursor:pointer;
-    transition: background 0.3s;
-}
-.logout-btn:hover { background: #bd2130; }
-
-/* METRIC CARDS MULTI-STYLING */
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-    margin-bottom:30px;
-}
-
-.card{
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.05);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 5px; height: 100%;
-    background: var(--primary-color);
-}
-
-.card h3{
-    margin-bottom:5px;
-    color:#777;
-    font-size: 14px;
-    text-transform: uppercase;
-}
-
-.card p{
-    font-size:32px;
-    color: var(--primary-color);
-    font-weight:bold;
-}
-
-.card i {
-    font-size: 40px;
-    color: rgba(15, 139, 95, 0.15);
-    transition: color 0.3s;
-}
-.card:hover i {
-    color: rgba(15, 139, 95, 0.3);
-}
-
-/* ANIMATED DASHBOARD EXTENSIONS */
-.welcome-banner {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: white;
-    padding: 30px;
-    border-radius: 15px;
-    margin-bottom: 30px;
-    box-shadow: 0 6px 15px rgba(11, 107, 73, 0.2);
-    position: relative;
-    animation: slideInDown 0.5s ease;
-}
-
-.welcome-banner h2 {
-    font-size: 28px;
-    margin-bottom: 8px;
-}
-
-.welcome-banner p {
-    font-size: 15px;
-    opacity: 0.9;
-}
-
-/* MEDICAL GRID LAYOUTS (DOCTORS & DISEASES) */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 25px;
-    margin-top: 25px;
-}
-
-@media(max-width: 1024px) {
-    .dashboard-grid { grid-template-columns: 1fr; }
-}
-
-.info-panel {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.info-panel h3 {
-    color: var(--primary-color);
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 2px solid var(--bg-gray);
-    padding-bottom: 10px;
-}
-
-/* DOCTOR AVATAR CHIPS */
-.doc-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.doc-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 10px;
-    border-radius: 10px;
-    background: var(--bg-gray);
-    transition: background 0.2s;
-}
-.doc-card:hover { background: #eef2f1; }
-
-.doc-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--primary-color);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: bold;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-}
-
-.doc-info h4 { color: #333; font-size: 15px; }
-.doc-info p { color: #666; font-size: 13px; }
-
-/* DISEASE LISTING TRACKER */
-.disease-item {
-    margin-bottom: 15px;
-}
-.disease-details {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-.progress-bar-bg {
-    width: 100%;
-    height: 8px;
-    background: #e0e0e0;
-    border-radius: 5px;
-    overflow: hidden;
-}
-.progress-fill {
-    height: 100%;
-    background: var(--primary-color);
-    border-radius: 5px;
-    transition: width 1s ease-in-out;
-}
-
-/* APP SECTIONS GENERAL */
-.app-section {
-    display: none;
-}
-
-.app-section.active-section {
-    display: block;
-}
-
-.section {
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    margin-bottom:30px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.05);
-}
-
-.section-header {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-}
-
-.section-header button, .action-btn, .payment-btn {
-    background: var(--primary-color);
-    color:white;
-    border:none;
-    padding:10px 20px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight: 600;
-    transition: background 0.2s;
-}
-
-.payment-btn { background: #28a745; padding: 6px 12px; font-size: 12px; }
-.payment-btn:hover { background: #1e7e34; }
-.action-btn:hover { background: var(--primary-dark); }
-
-/* STATUS BADGES */
-.badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-.badge-unpaid { background: #fff3cd; color: #856404; }
-.badge-paid { background: #d4edda; color: #155724; }
-
-table {
-    width:100%;
-    border-collapse:collapse;
-    margin-top:10px;
-}
-
-table th {
-    background: var(--primary-color);
-    color:white;
-    padding:15px;
-    text-align:left;
-}
-
-table td {
-    padding:15px;
-    border-bottom:1px solid #ddd;
-}
-
-.delete-btn {
-    background:#dc3545;
-    color:white;
-    border:none;
-    padding:8px 12px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-/* MODALS */
-.modal {
-    display:none;
-    position:fixed;
-    top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.5);
-    justify-content:center; align-items:center;
-    z-index: 1000;
-}
-
-.modal-content {
-    width:420px;
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    position:relative;
-    animation: zoomIn 0.3s ease;
-}
-
-.modal-content h2 { margin-bottom:20px; color: var(--primary-color); }
-.close { position:absolute; top:10px; right:15px; font-size:28px; cursor:pointer; }
-
-form { display:flex; flex-direction:column; }
-form input, form select, form textarea { margin-bottom:15px; padding:12px; border:1px solid #ccc; border-radius:8px; }
-.save-btn { background: var(--primary-color); color:white; border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight: bold; }
-
-.search-bar { width: 100%; max-width: 300px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 15px; }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@media(max-width:768px){
-    .sidebar { width:200px; }
-    .main { margin-left:200px; }
-}
-</style>
 </head>
 <body>
 
+<!-- ══════════════════════════════════════
+     LOGIN PAGE
+══════════════════════════════════════ -->
 <div id="loginPage">
     <div class="login-box animate__animated animate__fadeInUp">
         <h1>MedCare Clinic</h1>
         <p>Medical Consultation Database System</p>
-        <input type="text" id="username" placeholder="Username" value="admin">
-        <input type="password" id="password" placeholder="Password" value="password">
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
         <select id="role">
             <option value="">Select System Access Role</option>
-            <option selected value="Administrator">Administrator</option>
+            <option value="Administrator">Administrator</option>
             <option value="Doctor">Doctor</option>
             <option value="Receptionist">Receptionist</option>
             <option value="Cashier">Cashier</option>
@@ -473,69 +32,67 @@ form input, form select, form textarea { margin-bottom:15px; padding:12px; borde
     </div>
 </div>
 
+<!-- ══════════════════════════════════════
+     MAIN SYSTEM
+══════════════════════════════════════ -->
 <div id="mainSystem">
+
+    <!-- SIDEBAR -->
     <div class="sidebar">
         <h2>MedCare Clinic</h2>
         <div id="userDisplayRole">Role</div>
         <ul>
-            <li class="nav-item active" id="nav-dashboard" onclick="switchTab('dashboard', this)"><i class="fa-solid fa-chart-pie"></i>Dashboard</li>
-            <li class="nav-item" id="nav-patients" onclick="switchTab('patients', this)"><i class="fa-solid fa-user-injured"></i>Patients</li>
-            <li class="nav-item" id="nav-doctors" onclick="switchTab('doctors', this)"><i class="fa-solid fa-user-doctor"></i>Doctors</li>
-            <li class="nav-item" id="nav-appointments" onclick="switchTab('appointments', this)"><i class="fa-solid fa-calendar-check"></i>Appointments</li>
-            <li class="nav-item" id="nav-consultations" onclick="switchTab('consultations', this)"><i class="fa-solid fa-file-medical"></i>Consultations</li>
-            <li class="nav-item" id="nav-medications" onclick="switchTab('medications', this)"><i class="fa-solid fa-pills"></i>Medications</li>
-            <li class="nav-item" id="nav-billing" onclick="switchTab('billing', this)"><i class="fa-solid fa-file-invoice-dollar"></i>Billing</li>
-            <li class="nav-item" id="nav-referrals" onclick="switchTab('referrals', this)"><i class="fa-solid fa-notes-medical"></i>Referrals</li>
-            <li class="nav-item" id="nav-reports" onclick="switchTab('reports', this)"><i class="fa-solid fa-chart-line"></i>Reports</li>
+            <li class="nav-item active" id="nav-dashboard"     onclick="switchTab('dashboard', this)">    <i class="fa-solid fa-chart-pie"></i>Dashboard</li>
+            <li class="nav-item" id="nav-patients"             onclick="switchTab('patients', this)">      <i class="fa-solid fa-user-injured"></i>Patients</li>
+            <li class="nav-item" id="nav-doctors"              onclick="switchTab('doctors', this)">       <i class="fa-solid fa-user-doctor"></i>Doctors</li>
+            <li class="nav-item" id="nav-appointments"         onclick="switchTab('appointments', this)">  <i class="fa-solid fa-calendar-check"></i>Appointments</li>
+            <li class="nav-item" id="nav-consultations"        onclick="switchTab('consultations', this)"> <i class="fa-solid fa-file-medical"></i>Consultations</li>
+            <li class="nav-item" id="nav-medications"          onclick="switchTab('medications', this)">   <i class="fa-solid fa-pills"></i>Medications</li>
+            <li class="nav-item" id="nav-billing"              onclick="switchTab('billing', this)">       <i class="fa-solid fa-file-invoice-dollar"></i>Billing</li>
+            <li class="nav-item" id="nav-referrals"            onclick="switchTab('referrals', this)">     <i class="fa-solid fa-notes-medical"></i>Referrals</li>
+            <li class="nav-item" id="nav-reports"              onclick="switchTab('reports', this)">       <i class="fa-solid fa-chart-line"></i>Reports</li>
         </ul>
     </div>
 
+    <!-- MAIN CONTENT -->
     <div class="main">
+
+        <!-- Header -->
         <div class="header">
             <h1 id="pageTitle">Medical Consultation Dashboard</h1>
             <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
 
+        <!-- ── DASHBOARD ── -->
         <div id="dashboardSection" class="app-section active-section">
-            
+
             <div class="welcome-banner">
-                <h2 class="animate__animated animate__fadeInLeft"><i class="fa-solid fa-handshake-angle"></i> Welcome to MedCare Clinic Matrix</h2>
+                <h2 class="animate__animated animate__fadeInLeft">
+                    <i class="fa-solid fa-handshake-angle"></i> Welcome to MedCare Clinic Matrix
+                </h2>
                 <p>System Online. Your secure multi-role environment is running efficiently. Databases are ready for presentation review.</p>
             </div>
 
             <div class="cards">
                 <div class="card">
-                    <div>
-                        <h3>Total Patients</h3>
-                        <p id="patientCount">2</p>
-                    </div>
+                    <div><h3>Total Patients</h3><p id="patientCount">0</p></div>
                     <i class="fa-solid fa-hospital-user"></i>
                 </div>
                 <div class="card">
-                    <div>
-                        <h3>Active Doctors</h3>
-                        <p id="doctorCount">3</p>
-                    </div>
+                    <div><h3>Active Doctors</h3><p id="doctorCount">0</p></div>
                     <i class="fa-solid fa-user-md"></i>
                 </div>
                 <div class="card">
-                    <div>
-                        <h3>Appointments</h3>
-                        <p id="appointmentCount">0</p>
-                    </div>
+                    <div><h3>Appointments</h3><p id="appointmentCount">0</p></div>
                     <i class="fa-solid fa-calendar-days"></i>
                 </div>
                 <div class="card">
-                    <div>
-                        <h3>Consultations</h3>
-                        <p id="consultationCount">1</p>
-                    </div>
+                    <div><h3>Consultations</h3><p id="consultationCount">0</p></div>
                     <i class="fa-solid fa-notes-medical"></i>
                 </div>
             </div>
 
             <div class="dashboard-grid">
-                
                 <div class="info-panel animate__animated animate__fadeInUp">
                     <h3><i class="fa-solid fa-user-tie"></i> On-Duty Medical Specialists</h3>
                     <div class="doc-list">
@@ -565,42 +122,30 @@ form input, form select, form textarea { margin-bottom:15px; padding:12px; borde
 
                 <div class="info-panel animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
                     <h3><i class="fa-solid fa-virus-covid"></i> Top Tracked Diagnoses</h3>
-                    
                     <div class="disease-item">
-                        <div class="disease-details">
-                            <span>Hypertension</span>
-                            <span>45 Cases</span>
-                        </div>
-                        <div class="progress-bar-bg"><div class="progress-fill" style="width: 75%;"></div></div>
+                        <div class="disease-details"><span>Hypertension</span><span>45 Cases</span></div>
+                        <div class="progress-bar-bg"><div class="progress-fill" style="width:75%;"></div></div>
                     </div>
-
                     <div class="disease-item">
-                        <div class="disease-details">
-                            <span>Type 2 Diabetes mellitus</span>
-                            <span>30 Cases</span>
-                        </div>
-                        <div class="progress-bar-bg"><div class="progress-fill" style="width: 50%; background: #ff9800;"></div></div>
+                        <div class="disease-details"><span>Type 2 Diabetes Mellitus</span><span>30 Cases</span></div>
+                        <div class="progress-bar-bg"><div class="progress-fill" style="width:50%; background:#ff9800;"></div></div>
                     </div>
-
                     <div class="disease-item">
-                        <div class="disease-details">
-                            <span>Acute Nasopharyngitis (Cold)</span>
-                            <span>15 Cases</span>
-                        </div>
-                        <div class="progress-bar-bg"><div class="progress-fill" style="width: 25%; background: #2196f3;"></div></div>
+                        <div class="disease-details"><span>Acute Nasopharyngitis (Cold)</span><span>15 Cases</span></div>
+                        <div class="progress-bar-bg"><div class="progress-fill" style="width:25%; background:#2196f3;"></div></div>
                     </div>
                 </div>
-
             </div>
         </div>
 
+        <!-- ── PATIENTS ── -->
         <div id="patientsSection" class="app-section">
             <div class="section">
                 <div class="section-header">
                     <h2>Patient Records & Registration</h2>
                     <button onclick="openModal('patientModal')">Add Patient</button>
                 </div>
-                <div style="overflow-x: auto;">
+                <div style="overflow-x:auto;">
                     <table>
                         <thead>
                             <tr>
@@ -620,6 +165,7 @@ form input, form select, form textarea { margin-bottom:15px; padding:12px; borde
             </div>
         </div>
 
+        <!-- ── DOCTORS ── -->
         <div id="doctorsSection" class="app-section">
             <div class="section">
                 <div class="section-header">
@@ -641,6 +187,7 @@ form input, form select, form textarea { margin-bottom:15px; padding:12px; borde
             </div>
         </div>
 
+        <!-- ── APPOINTMENTS ── -->
         <div id="appointmentsSection" class="app-section">
             <div class="section">
                 <div class="section-header">
@@ -663,6 +210,7 @@ form input, form select, form textarea { margin-bottom:15px; padding:12px; borde
             </div>
         </div>
 
+        <!-- ── CONSULTATIONS ── -->
         <div id="consultationsSection" class="app-section">
             <div class="section">
                 <div class="section-header">
@@ -685,27 +233,28 @@ form input, form select, form textarea { margin-bottom:15px; padding:12px; borde
             </div>
         </div>
 
+        <!-- ── MEDICATIONS ── -->
         <div id="medicationsSection" class="app-section">
             <div class="section">
                 <h2>Pharmacy & Prescription Track</h2>
-                <p style="color: #666; margin: 15px 0;">Module ready for backend schema synchronization.</p>
+                <p style="color:#666; margin:15px 0;">Module ready for backend schema synchronization.</p>
                 <button class="action-btn" onclick="alert('Medication Tracker ready to pair with backend API.')">Check Stock Inventory</button>
             </div>
         </div>
 
+        <!-- ── BILLING ── -->
         <div id="billingSection" class="app-section">
             <div class="section">
                 <div class="section-header">
                     <h2>Billing & Payments Ledger</h2>
                     <button onclick="openModal('manualBillingModal')">Create Manual Bill</button>
                 </div>
-                
-                <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 10px;">
-                    <i class="fa-solid fa-search" style="color: var(--primary-color);"></i>
-                    <input type="text" id="billingSearchInput" onkeyup="searchBillingRecords()" placeholder="Search Patient Name..." class="search-bar" style="margin-bottom:0;">
+                <div style="display:flex; gap:15px; align-items:center; margin-bottom:10px;">
+                    <i class="fa-solid fa-search" style="color:var(--primary-color);"></i>
+                    <input type="text" id="billingSearchInput" onkeyup="searchBillingRecords()"
+                           placeholder="Search Patient Name..." class="search-bar" style="margin-bottom:0;">
                 </div>
-
-                <div style="overflow-x: auto;">
+                <div style="overflow-x:auto;">
                     <table>
                         <thead>
                             <tr>
@@ -719,437 +268,126 @@ form input, form select, form textarea { margin-bottom:15px; padding:12px; borde
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="billingTable">
-                            <tr class="billing-row">
-                                <td>B001</td>
-                                <td class="b-patient-name">Juan Dela Cruz</td>
-                                <td>₱500.00</td>
-                                <td>₱300.00</td>
-                                <td>₱200.00</td>
-                                <td style="font-weight:bold; color:var(--primary-color);">₱1000.00</td>
-                                <td><span class="badge badge-unpaid" id="status-B001">Unpaid</span></td>
-                                <td><button class="payment-btn" onclick="markAsPaid('B001', 1000)">Mark as Paid</button></td>
-                            </tr>
-                            <tr class="billing-row">
-                                <td>B002</td>
-                                <td class="b-patient-name">Maria Santos</td>
-                                <td>₱500.00</td>
-                                <td>₱0.00</td>
-                                <td>₱150.00</td>
-                                <td style="font-weight:bold; color:var(--primary-color);">₱650.00</td>
-                                <td><span class="badge badge-paid" id="status-B002">Paid</span></td>
-                                <td><button class="payment-btn" style="background:#6c757d; cursor:not-allowed;" disabled>Settled</button></td>
-                            </tr>
-                        </tbody>
+                        <tbody id="billingTable"></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
+        <!-- ── REFERRALS ── -->
         <div id="referralsSection" class="app-section">
             <div class="section">
                 <h2>Inter-Departmental Referrals</h2>
-                <p style="color: #666; margin: 15px 0;">External clinical exchange data pipeline status: Standby.</p>
+                <p style="color:#666; margin:15px 0;">External clinical exchange data pipeline status: Standby.</p>
             </div>
         </div>
 
+        <!-- ── REPORTS ── -->
         <div id="reportsSection" class="app-section">
             <div class="section">
                 <h2>System Analytics & Reports</h2>
-                <p style="color: #666; margin-bottom: 25px;">Generate real-time system performance audits and metrics data summaries.</p>
+                <p style="color:#666; margin-bottom:25px;">Generate real-time system performance audits and metrics data summaries.</p>
                 <button class="action-btn" onclick="generateReport()">Compile Data Report Summary</button>
             </div>
         </div>
 
-    </div>
-</div>
+    </div><!-- end .main -->
+</div><!-- end #mainSystem -->
 
+<!-- ══════════════════════════════════════
+     MODALS
+══════════════════════════════════════ -->
+
+<!-- Add Patient -->
 <div class="modal" id="patientModal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('patientModal')">&times;</span>
         <h2>Add Patient</h2>
         <form id="patientForm">
-            <input type="text" id="patientName" placeholder="Full Name" required>
-            <input type="date" id="patientBirthdate" required>
+            <input type="text" id="patientName"      placeholder="Full Name"       required>
+            <input type="date" id="patientBirthdate"                               required>
             <select id="patientGender" required>
                 <option value="">Select Gender</option>
                 <option>Male</option>
                 <option>Female</option>
             </select>
-            <input type="text" id="patientContact" placeholder="Contact Number" required>
-            <input type="text" id="patientAddress" placeholder="Address" required>
-            <textarea id="patientHistory" placeholder="Medical History"></textarea>
+            <input type="text" id="patientContact"   placeholder="Contact Number"  required>
+            <input type="text" id="patientAddress"   placeholder="Address"         required>
+            <textarea id="patientHistory"            placeholder="Medical History"></textarea>
             <button type="submit" class="save-btn">Save Patient</button>
         </form>
     </div>
 </div>
 
+<!-- Add Doctor -->
 <div class="modal" id="doctorModal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('doctorModal')">&times;</span>
         <h2>Add Doctor</h2>
         <form id="doctorForm">
-            <input type="text" id="doctorName" placeholder="Doctor Name" required>
-            <input type="text" id="doctorSpecialization" placeholder="Specialization" required>
-            <input type="text" id="doctorDepartment" placeholder="Department" required>
+            <input type="text" id="doctorName"           placeholder="Doctor Name"     required>
+            <input type="text" id="doctorSpecialization" placeholder="Specialization"  required>
+            <input type="text" id="doctorDepartment"     placeholder="Department"      required>
             <button type="submit" class="save-btn">Save Doctor</button>
         </form>
     </div>
 </div>
 
+<!-- Schedule Appointment -->
 <div class="modal" id="appointmentModal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('appointmentModal')">&times;</span>
         <h2>Schedule Appointment</h2>
         <form id="appointmentForm">
-            <input type="text" id="appointmentPatient" placeholder="Patient Name" required>
-            <input type="text" id="appointmentDoctor" placeholder="Doctor Name" required>
-            <input type="date" id="appointmentDate" required>
-            <input type="text" id="appointmentPurpose" placeholder="Purpose of Visit" required>
+            <input type="text" id="appointmentPatient" placeholder="Patient Name"       required>
+            <input type="text" id="appointmentDoctor"  placeholder="Doctor Name"        required>
+            <input type="date" id="appointmentDate"                                      required>
+            <input type="text" id="appointmentPurpose" placeholder="Purpose of Visit"   required>
             <button type="submit" class="save-btn">Save Appointment</button>
         </form>
     </div>
 </div>
 
+<!-- Add Consultation -->
 <div class="modal" id="consultationModal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('consultationModal')">&times;</span>
         <h2>Add Consultation Record</h2>
         <form id="consultationForm">
-            <input type="text" id="consultPatientName" placeholder="Patient Name" required>
-            <input type="text" id="diagnosis" placeholder="Diagnosis Details" required>
-            <input type="text" id="prescription" placeholder="Prescription / Medications" required>
-            <input type="text" id="consultDoctor" placeholder="Attending Doctor Name" required>
+            <input type="text" id="consultPatientName" placeholder="Patient Name"                  required>
+            <input type="text" id="diagnosis"          placeholder="Diagnosis Details"             required>
+            <input type="text" id="prescription"       placeholder="Prescription / Medications"    required>
+            <input type="text" id="consultDoctor"      placeholder="Attending Doctor Name"         required>
             <hr style="margin-bottom:10px; border:0; border-top:1px dashed #ccc;">
-            <p style="font-size:12px; font-weight:bold; color:var(--primary-color); margin-bottom:5px;">Link Billing Entry Charges (₱):</p>
+            <p style="font-size:12px; font-weight:bold; color:var(--primary-color); margin-bottom:5px;">
+                Link Billing Entry Charges (₱):
+            </p>
             <input type="number" id="billConsultFee" placeholder="Consultation Fee" value="500" required>
-            <input type="number" id="billLabFee" placeholder="Laboratory Fee" value="0" required>
-            <input type="number" id="billPrescFee" placeholder="Prescription Fee" value="0" required>
+            <input type="number" id="billLabFee"     placeholder="Laboratory Fee"   value="0"   required>
+            <input type="number" id="billPrescFee"   placeholder="Prescription Fee" value="0"   required>
             <button type="submit" class="save-btn">Save & Process to Billing</button>
         </form>
     </div>
 </div>
 
+<!-- Manual Billing -->
 <div class="modal" id="manualBillingModal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('manualBillingModal')">&times;</span>
         <h2>Create Billing Entry</h2>
         <form id="manualBillingForm">
-            <input type="text" id="mBillPatientName" placeholder="Patient Name" required>
-            <input type="number" id="mBillConsult" placeholder="Consultation Fee (₱)" required>
-            <input type="number" id="mBillLab" placeholder="Laboratory Fee (₱)" required>
-            <input type="number" id="mBillPresc" placeholder="Prescription Fee (₱)" required>
+            <input type="text"   id="mBillPatientName" placeholder="Patient Name"             required>
+            <input type="number" id="mBillConsult"     placeholder="Consultation Fee (₱)"     required>
+            <input type="number" id="mBillLab"         placeholder="Laboratory Fee (₱)"       required>
+            <input type="number" id="mBillPresc"       placeholder="Prescription Fee (₱)"     required>
             <button type="submit" class="save-btn">Generate Bill</button>
         </form>
     </div>
 </div>
 
-<script>
-/* CORE ENGINE COUNTERS */
-let patientID = 0;
-let doctorID = 3;
-let appointmentID = 0;
-let consultationID = 1;
-let billingID = 2;
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/ui.js"></script>
 
-/* ROLE-BASED ACCESS CONFIGURATIONS (RBAC Matrix) */
-const rolePermissions = {
-    "Administrator": ["dashboard", "patients", "doctors", "appointments", "consultations", "medications", "billing", "referrals", "reports"],
-    "Doctor": ["dashboard", "patients", "appointments", "consultations"],
-    "Receptionist": ["dashboard", "patients", "appointments"],
-    "Cashier": ["dashboard", "billing"]
-};
-
-let currentActiveRole = "";
-
-function login(){
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
-    let role = document.getElementById("role").value;
-
-    if(username === "" || password === "" || role === ""){
-        alert("Please complete all login fields!");
-        return;
-    }
-
-    currentActiveRole = role;
-    document.getElementById("userDisplayRole").innerText = `Role: ${role}`;
-
-    applyRoleSecurity(role);
-
-    alert(`Authentication Successful! Welcome back, ${role}.`);
-    document.getElementById("loginPage").style.display = "none";
-    document.getElementById("mainSystem").style.display = "block";
-
-    if(role === "Cashier") {
-        switchTab('billing', document.getElementById('nav-billing'));
-    } else {
-        switchTab('dashboard', document.getElementById('nav-dashboard'));
-    }
-}
-
-function logout(){
-    alert("Logged Out Successfully!");
-    document.getElementById("mainSystem").style.display = "none";
-    document.getElementById("loginPage").style.display = "flex";
-    currentActiveRole = "";
-}
-
-function applyRoleSecurity(role) {
-    const allowedModules = rolePermissions[role] || ["dashboard"];
-    const allNavItems = document.querySelectorAll('.nav-item');
-
-    allNavItems.forEach(nav => {
-        const moduleKey = nav.id.replace('nav-', '');
-        if (allowedModules.includes(moduleKey)) {
-            nav.style.display = "flex";
-        } else {
-            nav.style.display = "none";
-        }
-    });
-}
-
-function openModal(id){ document.getElementById(id).style.display = "flex"; }
-function closeModal(id){ document.getElementById(id).style.display = "none"; }
-
-function switchTab(sectionKey, clickedElement) {
-    if (currentActiveRole !== "" && !rolePermissions[currentActiveRole].includes(sectionKey)) {
-        alert("Access Denied: Your account role does not hold clearances for this segment.");
-        return;
-    }
-
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    clickedElement.classList.add('active');
-
-    document.getElementById('pageTitle').innerText = clickedElement.innerText;
-
-    document.querySelectorAll('.app-section').forEach(section => section.classList.remove('active-section'));
-    document.getElementById(sectionKey + 'Section').classList.add('active-section');
-}
-
-/* DATA INGESTION ENGINE INTERFACES */
-document.getElementById("patientForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    patientID++;
-
-    const name = document.getElementById("patientName").value;
-    const birthdate = document.getElementById("patientBirthdate").value;
-    const gender = document.getElementById("patientGender").value;
-    const contact = document.getElementById("patientContact").value;
-    const address = document.getElementById("patientAddress").value;
-    const history = document.getElementById("patientHistory").value;
-
-    const row = `
-        <tr>
-            <td>P00${patientID}</td>
-            <td>${name}</td>
-            <td>${birthdate}</td>
-            <td>${gender}</td>
-            <td>${contact}</td>
-            <td>${address}</td>
-            <td>${history}</td>
-            <td><button class="delete-btn" onclick="deleteRow(this,'patientCount')">Delete</button></td>
-        </tr>`;
-
-    document.getElementById("patientTable").insertAdjacentHTML('beforeend', row);
-    updateCountDisplay('patientCount', 1);
-    this.reset();
-    closeModal("patientModal");
-});
-
-document.getElementById("doctorForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    doctorID++;
-
-    const name = document.getElementById("doctorName").value;
-    const specialization = document.getElementById("doctorSpecialization").value;
-    const department = document.getElementById("doctorDepartment").value;
-
-    const row = `
-        <tr>
-            <td>D00${doctorID}</td>
-            <td>${name}</td>
-            <td>${specialization}</td>
-            <td>${department}</td>
-            <td><button class="delete-btn" onclick="deleteRow(this,'doctorCount')">Delete</button></td>
-        </tr>`;
-
-    document.getElementById("doctorTable").insertAdjacentHTML('beforeend', row);
-    updateCountDisplay('doctorCount', 1);
-    this.reset();
-    closeModal("doctorModal");
-});
-
-document.getElementById("appointmentForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    appointmentID++;
-
-    const patient = document.getElementById("appointmentPatient").value;
-    const doctor = document.getElementById("appointmentDoctor").value;
-    const date = document.getElementById("appointmentDate").value;
-    const purpose = document.getElementById("appointmentPurpose").value;
-
-    const row = `
-        <tr>
-            <td>A00${appointmentID}</td>
-            <td>${patient}</td>
-            <td>${doctor}</td>
-            <td>${date}</td>
-            <td>${purpose}</td>
-            <td><button class="delete-btn" onclick="deleteRow(this,'appointmentCount')">Delete</button></td>
-        </tr>`;
-
-    document.getElementById("appointmentTable").insertAdjacentHTML('beforeend', row);
-    updateCountDisplay('appointmentCount', 1);
-    this.reset();
-    closeModal("appointmentModal");
-});
-
-document.getElementById("consultationForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    consultationID++;
-
-    const pName = document.getElementById("consultPatientName").value;
-    const diagnosis = document.getElementById("diagnosis").value;
-    const prescription = document.getElementById("prescription").value;
-    const doctor = document.getElementById("consultDoctor").value;
-
-    const cFee = parseFloat(document.getElementById("billConsultFee").value) || 0;
-    const lFee = parseFloat(document.getElementById("billLabFee").value) || 0;
-    const pFee = parseFloat(document.getElementById("billPrescFee").value) || 0;
-
-    const consultRow = `
-        <tr>
-            <td>C00${consultationID}</td>
-            <td>${pName}</td>
-            <td>${diagnosis}</td>
-            <td>${prescription}</td>
-            <td>${doctor}</td>
-            <td><button class="delete-btn" onclick="deleteRow(this,'consultationCount')">Delete</button></td>
-        </tr>`;
-    document.getElementById("consultationTable").insertAdjacentHTML('beforeend', consultRow);
-    updateCountDisplay('consultationCount', 1);
-
-    billingID++;
-    const finalBillCode = `B00${billingID}`;
-    const calculatedGrandTotal = cFee + lFee + pFee;
-
-    const billingRow = `
-        <tr class="billing-row">
-            <td>${finalBillCode}</td>
-            <td class="b-patient-name">${pName}</td>
-            <td>₱${cFee.toFixed(2)}</td>
-            <td>₱${lFee.toFixed(2)}</td>
-            <td>₱${pFee.toFixed(2)}</td>
-            <td style="font-weight:bold; color:var(--primary-color);">₱${calculatedGrandTotal.toFixed(2)}</td>
-            <td><span class="badge badge-unpaid" id="status-${finalBillCode}">Unpaid</span></td>
-            <td><button class="payment-btn" onclick="markAsPaid('${finalBillCode}', ${calculatedGrandTotal})">Mark as Paid</button></td>
-        </tr>`;
-    document.getElementById("billingTable").insertAdjacentHTML('beforeend', billingRow);
-
-    this.reset();
-    closeModal("consultationModal");
-    alert("Consultation recorded successfully. Invoice transmitted directly to Cashier.");
-});
-
-document.getElementById("manualBillingForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    billingID++;
-    
-    const pName = document.getElementById("mBillPatientName").value;
-    const cFee = parseFloat(document.getElementById("mBillConsult").value) || 0;
-    const lFee = parseFloat(document.getElementById("mBillLab").value) || 0;
-    const pFee = parseFloat(document.getElementById("mBillPresc").value) || 0;
-    const total = cFee + lFee + pFee;
-    const code = `B00${billingID}`;
-
-    const row = `
-        <tr class="billing-row">
-            <td>${code}</td>
-            <td class="b-patient-name">${pName}</td>
-            <td>₱${cFee.toFixed(2)}</td>
-            <td>₱${lFee.toFixed(2)}</td>
-            <td>₱${pFee.toFixed(2)}</td>
-            <td style="font-weight:bold; color:var(--primary-color);">₱${total.toFixed(2)}</td>
-            <td><span class="badge badge-unpaid" id="status-${code}">Unpaid</span></td>
-            <td><button class="payment-btn" onclick="markAsPaid('${code}', ${total})">Mark as Paid</button></td>
-        </tr>`;
-        
-    document.getElementById("billingTable").insertAdjacentHTML('beforeend', row);
-    this.reset();
-    closeModal("manualBillingModal");
-});
-
-function markAsPaid(id, totalAmount) {
-    const targetBadge = document.getElementById(`status-${id}`);
-    if(targetBadge) {
-        targetBadge.className = "badge badge-paid";
-        targetBadge.innerText = "Paid";
-        
-        const btn = targetBadge.parentElement.parentElement.querySelector('.payment-btn');
-        if(btn) {
-            btn.style.background = "#6c757d";
-            btn.style.cursor = "not-allowed";
-            btn.innerText = "Settled";
-            btn.disabled = true;
-        }
-
-        alert(
-            '===================================\n' +
-            '       RECEIPT PAYMENT SLIP        \n' +
-            '===================================\n' +
-            'Invoice Reference ID: ' + id + '\n' +
-            'Transaction Status: SETTLED / PAID\n' +
-            'Total Funds Rendered: ₱' + totalAmount.toFixed(2) + '\n' +
-            '===================================\n' +
-            'Transaction finalized successfully.'
-        );
-    }
-}
-
-function searchBillingRecords() {
-    const input = document.getElementById("billingSearchInput").value.toLowerCase();
-    const rows = document.querySelectorAll(".billing-row");
-
-    rows.forEach(row => {
-        const patientNameText = row.querySelector(".b-patient-name").innerText.toLowerCase();
-        if(patientNameText.includes(input)) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
-    });
-}
-
-function deleteRow(button, counterId){
-    button.parentElement.parentElement.remove();
-    updateCountDisplay(counterId, -1);
-}
-
-function updateCountDisplay(counterId, amount) {
-    let target = document.getElementById(counterId);
-    let currentVal = parseInt(target.innerText) || 0;
-    let computedVal = currentVal + amount;
-    target.innerText = computedVal < 0 ? 0 : computedVal;
-    
-    if(counterId === 'patientCount') patientID = computedVal;
-    if(counterId === 'doctorCount') doctorID = computedVal;
-    if(counterId === 'appointmentCount') appointmentID = computedVal;
-    if(counterId === 'consultationCount') consultationID = computedVal;
-}
-
-function generateReport(){
-    alert(
-        '=============================\n' +
-        '    SYSTEM ANALYTICS REPORT  \n' +
-        '=============================\n' +
-        'Total Tracked Patients: ' + patientID + '\n' +
-        'Total Doctors Records: ' + doctorID + '\n' +
-        'Scheduled Appointments: ' + appointmentID + '\n' +
-        'Executed Consultations: ' + consultationID + '\n' +
-        '============================='
-    );
-}
-</script>
 </body>
 </html>
